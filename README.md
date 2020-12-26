@@ -1,22 +1,22 @@
 Messenger
 =========
 
-This is messenger which you can use on your local machine
+Hello! This is a messenger which you can use on your local machine
 
 
-Start Server.py using command in Windows:
+Start Server.py in Windows:
 
     python Server.py
 
-Or use command in Linux:
+Start Server.py in Linux:
 
     python3 Server.py
     
-After that, start at list 2 Client.py using command in Windows:
+After that, run at list 2 Client.py using command in Windows:
 
     python Client.py
     
-Or use command in Linux:
+Run command to launch in Linux:
 
     python3 Client.py
     
