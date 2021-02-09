@@ -1,23 +1,19 @@
 Messenger
 =========
 
-Hello! This is a messenger which you can use on your local machine
+Hello! This is simple Messenger that sends messages to all chat participants.
+You can use it on different computers and all messages will be encrypted with symmetric encryption.
+
+First of all start server.py:
 
 
-Start Server.py in Windows:
+	  python3 server.py
 
-    python Server.py
 
-Start Server.py in Linux:
+And after that start client.py
 
-    python3 Server.py
-    
-After that, run at list 2 Client.py using command in Windows:
 
-    python Client.py
-    
-Run command to launch in Linux:
+	  python3 client.py
 
-    python3 Client.py
-    
-Pleasant use :)
+
+And you can use it!
