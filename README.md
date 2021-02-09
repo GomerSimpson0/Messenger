@@ -1,7 +1,7 @@
 Messenger
 =========
 
-Hello! This is simple Messenger that sends messages to all chat participants.
+Hello! This is a simple Messenger that sends messages to all chat participants.
 You can use it on different computers and all messages will be encrypted with symmetric encryption.
 
 First of all start server.py:
