@@ -8,25 +8,21 @@ from tkinter import messagebox
 import time
 
 key = 8061
-shutdown = False
-join = False
 all_data = ''
-port = 0
 server = ("192.168.1.101", 9090)                 # Input there your Server ip address
 
 s = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
-s.bind(('192.168.1.101', port))
+s.bind(('192.168.1.101', 0))
 s.setblocking(0)
 
 def window(username):
 
     def clicked():
         if input_text.get() != '':
-            message = input_text.get()# + '\n'
+            message = input_text.get()
             crypt = ""
             for i in message:
                 crypt += chr(ord(i)^key)
-            #message = crypt
             s.sendto(("[" + username + "] :: " + crypt).encode("utf-8"), server)
             time.sleep(0.2)
             label.config(state = "normal")
@@ -42,7 +38,7 @@ def window(username):
 
 
     root = Tk()
-    root['bg'] = '#fafafa'
+    root['bg'] = '#303F9F'
     root.title('Messenger')
     root.wm_attributes('-alpha', 0.7)
     root.geometry('750x500')
@@ -59,7 +55,7 @@ def window(username):
     mainFrame = Frame(root)
     mainFrame.grid()
 
-    entryFrame = Frame(mainFrame, width=700, height=400)
+    entryFrame = Frame(mainFrame, width=700, height=400, background = '#303F9F')
     entryFrame.grid(row=0, column=1)
     entryFrame.columnconfigure(0, weight=40)
     entryFrame.grid_propagate(False)
@@ -77,18 +73,17 @@ def window(username):
     #--------------------------------------------
 
     #-------------Button-------------------------
-    btn = Button(root, text="Send Message", command = clicked, height = 1, width = 60)
+    btn = Button(root, text="Send Message", command = clicked, height = 1, width = 60, background = '#9E9E9E', activebackground = '#757575', foreground = '#FFFFFF')
     btn.grid(column=0, row=3, pady = 10, padx = 30)
     #--------------------------------------------
 
 
     def receving (name, sock):
-        while not shutdown:
+        while True:
             try:
                 while True:
                     data, addr = sock.recvfrom(1024)
 
-                                # Begin
                     decrypt = ""; k = False
                     for i in data.decode("utf-8"):
                         if i == ":":
@@ -98,31 +93,21 @@ def window(username):
                             decrypt += i
                         else:
                             decrypt += chr(ord(i)^key)
-                    all_data = label.get(1.0, END) + decrypt# + '\n'
-                    print(all_data)
+                    all_data = label.get(1.0, END) + decrypt
+                    if all_data[0] == '\n':
+                        all_data = all_data[1:]
+                    #print(all_data)
 
                     label.config(state = "normal")
                     label.delete(1.0, END)
                     label.insert(1.0, all_data, END)
                     label.config(state = "disabled")
 
-                    # End
                     time.sleep(0.2)
             except:
                 pass
 
     s.sendto(("[" + username + "] => join chat ").encode("utf-8"), server)
-
-    #def updating_text(global_data):
-    #    label.config(state = "normal")
-    #    label.delete(1.0, END)
-    #    label.insert(1.0, global_data, END)
-    #    label.config(state = "disabled")
-
-    #var_for_updating_text = updating_text(all_data)
-
-    #update_text = threading.Thread(target = var_for_updating_text, args = (all_data), daemon=True)
-    #update_text.start()
 
     rT = threading.Thread(target = receving, args = ("RecvThread", s), daemon=True)
     rT.start()
