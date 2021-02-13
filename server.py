@@ -1,13 +1,13 @@
 import socket, time
 
-#host = socket.gethostbyname(socket.gethostname())
 port = 9090
 
 clients = []
 
 s = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
-s.bind(('',port))
+s.bind(('', port))
 
+all_data = ''
 quit = False
 print("[ Server Started ]")
 
@@ -20,8 +20,10 @@ while not quit:
 
             itsatime = time.strftime("%Y-%m-%d-%H.%M.%S", time.localtime())
 
-            #print("["+addr[0]+"]=["+str(addr[1])+"]=["+itsatime+"]/",end="")
-        #print(data.decode("utf-8"))
+        #all_data = all_data + data.decode('utf-8')
+
+        #if 'join chat' in data.decode("utf-8"):
+        #    s.sendto(all_data.encode("utf-8"), addr)
 
         for client in clients:
             if addr != client:
